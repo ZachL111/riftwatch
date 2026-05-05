@@ -1,0 +1,6 @@
+Package: Riftwatch
+Type: Package
+Title: Riftwatch
+Version: 0.1.0
+License: MIT
+Description: Detect time-series anomalies using rolling medians and explainable thresholds.

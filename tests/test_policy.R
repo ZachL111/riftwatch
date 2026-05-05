@@ -1,0 +1,11 @@
+source("R/policy.R")
+
+signal_case_1 <- list(demand=78, capacity=75, latency=24, risk=9, weight=6)
+stopifnot(score_signal(signal_case_1) == 120)
+stopifnot(classify_signal(signal_case_1) == "review")
+signal_case_2 <- list(demand=67, capacity=95, latency=21, risk=18, weight=7)
+stopifnot(score_signal(signal_case_2) == 68)
+stopifnot(classify_signal(signal_case_2) == "review")
+signal_case_3 <- list(demand=79, capacity=91, latency=21, risk=6, weight=13)
+stopifnot(score_signal(signal_case_3) == 196)
+stopifnot(classify_signal(signal_case_3) == "accept")
