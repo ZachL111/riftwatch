@@ -1,0 +1,28 @@
+{
+  "repo": "riftwatch",
+  "language": "R",
+  "category": "ML utilities",
+  "goal": "Detect time-series anomalies using rolling medians and explainable thresholds.",
+  "weights": {
+    "signal": 3,
+    "slack": 2,
+    "confidence": 1,
+    "drag": 2
+  },
+  "thresholds": {
+    "ship": 200,
+    "watch": 111
+  },
+  "properties": [
+    "raising signal cannot reduce score",
+    "raising drag cannot improve score",
+    "lane labels must match configured thresholds",
+    "golden fixture ids must remain unique"
+  ],
+  "fixture_files": [
+    "fixtures/golden/scoreboard.csv",
+    "fixtures/golden/lane-matrix.csv",
+    "fixtures/fuzz/mutations.csv",
+    "fixtures/fuzz/boundary-cases.jsonl"
+  ]
+}

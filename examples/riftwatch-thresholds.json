@@ -1,0 +1,17 @@
+{
+  "repo": "riftwatch",
+  "thresholds": {
+    "signal": 3,
+    "slack": 2,
+    "confidence": 1,
+    "drag": 2,
+    "ship": 200,
+    "watch": 111
+  },
+  "terms": [
+    "feature drift",
+    "window width",
+    "metric stability",
+    "explainability"
+  ]
+}
