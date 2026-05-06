@@ -1,67 +1,40 @@
 # riftwatch
 
-`riftwatch` packages a practical ml utilities exercise in R. The emphasis is on deterministic behavior, a small public API, and examples that explain the tradeoffs.
+`riftwatch` explores ml utilities with a small R codebase and local fixtures. The technical goal is to detect time-series anomalies using rolling medians and explainable thresholds.
 
-## How I Read Riftwatch
+## Why This Exists
 
-The useful thing to inspect here is how the same score rule is represented in code, metadata, and examples. If those three pieces disagree, the audit script should make the drift visible.
+The point is to make a small domain rule concrete enough that a reader can change it and immediately see what broke.
 
-## Internal Model
+## Riftwatch Review Notes
 
-The project is organized around a compact model rather than a large framework. Inputs are scored, classified, and checked against golden fixtures. The constants live in code and are mirrored in metadata so documentation drift is easy to catch. The R version keeps the model as simple functions over named lists for easy analysis use.
+The first comparison I would make is `feature drift` against `explainability` because it shows where the rule is most opinionated.
 
-## Problem Shape
+## Capabilities
 
-This project keeps the domain idea close to the tests. That makes it useful as a reference implementation, a small experiment, or a starting point for a more specialized tool.
+- `fixtures/domain_review.csv` adds cases for feature drift and window width.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/riftwatch-walkthrough.md` walks through the case spread.
+- The R code includes a review path for `feature drift` and `explainability`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
-## Main Behaviors
+## Implementation Shape
 
-- Uses fixture data to keep metric checks changes visible in code review.
-- Includes extended examples for windowed behavior, including `recovery` and `degraded`.
-- Documents explainable outputs tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
-- Stores project constants and verification metadata in `metadata/project.json`.
+The implementation keeps the scoring rule plain: reward signal and confidence, preserve slack, penalize drag, then classify the result into a review lane.
 
-## Scenario Walkthrough
+The R addition stays small enough to inspect in one sitting.
 
-`examples/extended_cases.csv` adds six named cases. I kept the names plain so failures are easy to read in a terminal: baseline, pressure, surge, degraded, recovery, and boundary.
-
-## Repository Map
-
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-
-## Run It Locally
-
-The only required setup is the local R toolchain. After cloning, stay in the repo root so fixture paths resolve correctly.
-
-## How To Run It
+## Local Usage
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Verification
 
-## Validation
+The check exercises the source code and the review fixture. `stale` is the high score at 219; `recovery` is the low score at 114.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
+## Roadmap
 
-The audit command checks repository structure and README constraints before it delegates to the verifier.
-
-## Known Edges
-
-The scoring model is simple by design. More domain-specific behavior should be added through explicit adapters or extra fixture classes rather than hidden constants.
-
-## Follow-Up Work
-
-- Add a short report command that prints the score breakdown for a single scenario.
-- Add malformed input fixtures so the failure path is as visible as the happy path.
-- Split the scoring constants into a typed configuration object and validate it before use.
-- Add one more ml utilities fixture that focuses on a malformed or borderline input.
+The repository is intentionally scoped to local checks. I would expand it by adding adversarial fixtures before adding features.

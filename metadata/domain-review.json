@@ -1,0 +1,73 @@
+{
+  "repo": "riftwatch",
+  "language": "R",
+  "category": "ML utilities",
+  "goal": "Detect time-series anomalies using rolling medians and explainable thresholds.",
+  "review_model": {
+    "terms": [
+      "feature drift",
+      "window width",
+      "metric stability",
+      "explainability"
+    ],
+    "lanes": [
+      "ship",
+      "watch",
+      "hold"
+    ],
+    "score": "signal * 2 + slack + confidence - drag * 3",
+    "purpose": "surface the domain-specific cases that need the most careful review"
+  },
+  "cases": [
+    {
+      "name": "baseline",
+      "focus": "feature drift",
+      "signal": 71,
+      "slack": 41,
+      "drag": 30,
+      "confidence": 91,
+      "score": 184,
+      "lane": "ship"
+    },
+    {
+      "name": "stress",
+      "focus": "window width",
+      "signal": 62,
+      "slack": 43,
+      "drag": 25,
+      "confidence": 94,
+      "score": 186,
+      "lane": "ship"
+    },
+    {
+      "name": "edge",
+      "focus": "metric stability",
+      "signal": 63,
+      "slack": 32,
+      "drag": 32,
+      "confidence": 69,
+      "score": 131,
+      "lane": "watch"
+    },
+    {
+      "name": "recovery",
+      "focus": "explainability",
+      "signal": 51,
+      "slack": 36,
+      "drag": 29,
+      "confidence": 63,
+      "score": 114,
+      "lane": "watch"
+    },
+    {
+      "name": "stale",
+      "focus": "feature drift",
+      "signal": 72,
+      "slack": 21,
+      "drag": 11,
+      "confidence": 87,
+      "score": 219,
+      "lane": "ship"
+    }
+  ]
+}
